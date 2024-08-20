@@ -17,8 +17,9 @@ class Course(models.Model):
         auto_now_add=False,
         verbose_name='Дата и время начала курса'
     )
-
-    # TODO
+    cost = models.IntegerField(
+        verbose_name='Цена'
+    )
 
     class Meta:
         verbose_name = 'Курс'
@@ -40,8 +41,13 @@ class Lesson(models.Model):
         max_length=250,
         verbose_name='Ссылка',
     )
-
-    # TODO
+    order_number = models.SmallIntegerField(
+        verbose_name='Номер урока'
+    )
+    course_id = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE
+    )
 
     class Meta:
         verbose_name = 'Урок'
@@ -55,7 +61,14 @@ class Lesson(models.Model):
 class Group(models.Model):
     """Модель группы."""
 
-    # TODO
+    name = models.CharField(
+        max_length=50,
+        verbose_name='Название группы'
+    )
+    course_id = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE
+    )
 
     class Meta:
         verbose_name = 'Группа'
